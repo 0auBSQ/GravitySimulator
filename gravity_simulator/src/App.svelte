@@ -9,14 +9,14 @@
   });
 
 	let planetes = [
-		{ id: `https://solartextures.b-cdn.net/2k_earth_daymap.jpg`, text: `Earth`, radius: 1 },
-		{ id: `https://solartextures.b-cdn.net/2k_mercury.jpg`, text: `Mercury`, radius: 0.38 },
-		{ id: `https://solartextures.b-cdn.net/2k_venus_atmosphere.jpg`, text: `Venus`, radius: 0.95 },
-		{ id: `https://solartextures.b-cdn.net/2k_mars.jpg`, text: `Mars`, radius: 0.53 },
-		{ id: `https://solartextures.b-cdn.net/2k_jupiter.jpg`, text: `Jupiter`, radius: 11.20 },
-		{ id: `https://solartextures.b-cdn.net/2k_saturn.jpg`, text: `Saturn`, radius: 9.45 },
-		{ id: `https://solartextures.b-cdn.net/2k_uranus.jpg`, text: `Uranus`, radius: 4 },
-		{ id: `https://solartextures.b-cdn.net/2k_neptune.jpg`, text: `Neptune`, radius: 3.88 },
+		{ id: `https://solartextures.b-cdn.net/2k_earth_daymap.jpg`, text: `Earth`, radius: 1, mass: 1 },
+		{ id: `https://solartextures.b-cdn.net/2k_mercury.jpg`, text: `Mercury`, radius: 0.38, mass: 0.055 },
+		{ id: `https://solartextures.b-cdn.net/2k_venus_atmosphere.jpg`, text: `Venus`, radius: 0.95, mass: 0.815 },
+		{ id: `https://solartextures.b-cdn.net/2k_mars.jpg`, text: `Mars`, radius: 0.53, mass: 0.107 },
+		{ id: `https://solartextures.b-cdn.net/2k_jupiter.jpg`, text: `Jupiter`, radius: 11.20, mass: 317.8 },
+		{ id: `https://solartextures.b-cdn.net/2k_saturn.jpg`, text: `Saturn`, radius: 9.45, mass: 95.16 },
+		{ id: `https://solartextures.b-cdn.net/2k_uranus.jpg`, text: `Uranus`, radius: 4, mass: 14.54 },
+		{ id: `https://solartextures.b-cdn.net/2k_neptune.jpg`, text: `Neptune`, radius: 3.88, mass: 17.15 },
 	];
 
 	let selected;
