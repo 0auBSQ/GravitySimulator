@@ -19,11 +19,15 @@
 		{ id: `https://solartextures.b-cdn.net/2k_neptune.jpg`, text: `Neptune`, radius: 3.88, mass: 17.15 },
 	];
 
+	let objects = [
+		{ model: `models/rock_scan/scene.gltf`, text: `Meteorite`, radius: 0.1, mass : 0.01 }
+	];
+
 	let selected;
-	let answer = '';
+	let selected_object;
 
 	const refresh_model = () => {
-		refreshScene(selected);
+		refreshScene(selected, selected_object);
 	}
 
 </script>
@@ -37,6 +41,14 @@
 		{#each planetes as planete}
 			<option value={planete}>
 				{planete.text}
+			</option>
+		{/each}
+	</select>
+
+	<select bind:value={selected_object} on:change="{() => refresh_model()}">
+		{#each objects as object}
+			<option value={object}>
+				{object.text}
 			</option>
 		{/each}
 	</select>
