@@ -122,6 +122,10 @@ const load_effects = () => {
   composer.addPass(outlinePass);
 };
 
+export const playAnimation = (el, obj) => {
+  load_object(obj, el);
+}
+
 export const createScene = (el) => {
   renderer = new THREE.WebGLRenderer({antialias: true, canvas: el});
   composer = new EffectComposer(renderer);

@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { createScene, refreshScene } from "./scene";
+	import { createScene, refreshScene, playAnimation } from "./scene";
 
 	let el;
   onMount(() => {
@@ -30,6 +30,11 @@
 		refreshScene(selected, selected_object);
 	}
 
+	const play_anim = () => {
+		console.log("Cliqued !");
+		playAnimation(selected, selected_object);
+	}
+
 </script>
 
 <canvas bind:this={el}></canvas>
@@ -52,6 +57,10 @@
 			</option>
 		{/each}
 	</select>
+
+	<button on:click="{() => play_anim()}">
+		Play
+	</button>
 
 </aside>
 
