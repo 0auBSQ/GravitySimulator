@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { createScene, refreshScene, playAnimation } from "./scene";
+	import { MaterialApp, Button, Select, Slider, AppBar, Chip } from 'svelte-materialify';
 
 	let el;
   onMount(() => {
@@ -8,23 +9,31 @@
 		refresh_model();
   });
 
+	const retrieveObject = (arr, what) => arr.find(e => e.name === what);
+
 	let planetes = [
-		{ id: `https://solartextures.b-cdn.net/2k_earth_daymap.jpg`, text: `Earth`, radius: 1, mass: 1 },
-		{ id: `https://solartextures.b-cdn.net/2k_mercury.jpg`, text: `Mercury`, radius: 0.38, mass: 0.055 },
-		{ id: `https://solartextures.b-cdn.net/2k_venus_atmosphere.jpg`, text: `Venus`, radius: 0.95, mass: 0.815 },
-		{ id: `https://solartextures.b-cdn.net/2k_mars.jpg`, text: `Mars`, radius: 0.53, mass: 0.107 },
-		{ id: `https://solartextures.b-cdn.net/2k_jupiter.jpg`, text: `Jupiter`, radius: 11.20, mass: 317.8 },
-		{ id: `https://solartextures.b-cdn.net/2k_saturn.jpg`, text: `Saturn`, radius: 9.45, mass: 95.16 },
-		{ id: `https://solartextures.b-cdn.net/2k_uranus.jpg`, text: `Uranus`, radius: 4, mass: 14.54 },
-		{ id: `https://solartextures.b-cdn.net/2k_neptune.jpg`, text: `Neptune`, radius: 3.88, mass: 17.15 },
+		{ id: `https://solartextures.b-cdn.net/2k_earth_daymap.jpg`, text: `Earth`, radius: 1, mass: 1, name: `Earth`, value: `Earth` },
+		{ id: `https://solartextures.b-cdn.net/2k_mercury.jpg`, text: `Mercury`, radius: 0.38, mass: 0.055, name: `Mercury`, value: `Mercury` },
+		{ id: `https://solartextures.b-cdn.net/2k_venus_atmosphere.jpg`, text: `Venus`, radius: 0.95, mass: 0.815, name: `Venus`, value: `Venus` },
+		{ id: `https://solartextures.b-cdn.net/2k_mars.jpg`, text: `Mars`, radius: 0.53, mass: 0.107, name: `Mars`, value: `Mars` },
+		{ id: `https://solartextures.b-cdn.net/2k_jupiter.jpg`, text: `Jupiter`, radius: 11.20, mass: 317.8, name: `Jupiter`, value: `Jupiter` },
+		{ id: `https://solartextures.b-cdn.net/2k_saturn.jpg`, text: `Saturn`, radius: 9.45, mass: 95.16, name: `Saturn`, value: `Saturn` },
+		{ id: `https://solartextures.b-cdn.net/2k_uranus.jpg`, text: `Uranus`, radius: 4, mass: 14.54, name: `Uranus`, value: `Uranus` },
+		{ id: `https://solartextures.b-cdn.net/2k_neptune.jpg`, text: `Neptune`, radius: 3.88, mass: 17.15, name: `Neptune`, value: `Neptune` },
 	];
+
+	const theme = "dark";
+
+	const items = planetes.map(planete => planete.text);
 
 	let objects = [
-		{ model: `models/rock_scan/scene.gltf`, text: `Meteorite`, radius: 0.1, mass : 0.000001 }
+		{ model: `models/rock_scan/scene.gltf`, text: `Meteorite`, radius: 0.1, mass : 0.000001, name: `Meteorite`, value: `Meteorite` }
 	];
 
-	let selected;
-	let selected_object;
+	const items2 = objects.map(obj => obj.text);
+
+	let selected = planetes[0].name;
+	let selected_object = objects[0].name;
 	let initialSpeed = {
 		x: 0,
 		y: 0,
@@ -33,12 +42,12 @@
 	let simulation_speed = 1;
 
 	const refresh_model = () => {
-		refreshScene(selected, selected_object);
+		refreshScene(retrieveObject(planetes, selected), retrieveObject(objects, selected_object));
 	}
 
 	const play_anim = () => {
 		console.log("Cliqued !");
-		playAnimation(selected, selected_object, rescale_initial_speed(), simulation_speed);
+		playAnimation(retrieveObject(planetes, selected), retrieveObject(objects, selected_object), rescale_initial_speed(), simulation_speed);
 	}
 
 	const rescale_initial_speed = () => {
@@ -65,58 +74,78 @@
 
 </script>
 
+<MaterialApp {theme}>
 <canvas bind:this={el}></canvas>
 
 
 <aside class="left">
 
-	<select bind:value={selected} on:change="{() => refresh_model()}">
-		{#each planetes as planete}
-			<option value={planete}>
-				{planete.text}
-			</option>
-		{/each}
-	</select>
+	<Select
+		outlined
+		dense
+		mandatory={true}
+		{items}
+		class="ma-2 rounded"
+		bind:value={selected}
+		on:change="{() => refresh_model()}"
+		>
+		Planet
+	</Select>
 
-	<select bind:value={selected_object} on:change="{() => refresh_model()}">
-		{#each objects as object}
-			<option value={object}>
-				{object.text}
-			</option>
-		{/each}
-	</select>
+	<Select
+		outlined
+		dense
+		mandatory={true}
+		class="ma-2 rounded"
+		{items2}
+		bind:value={selected_object}
+		on:change="{() => refresh_model()}"
+		>
+		Object
+	</Select>
 
-	<button on:click="{() => play_anim()}">
+	<Button
+		on:click="{() => play_anim()}"
+		class="elevation-4 primary-color"
+		>
 		Play
-	</button>
+	</Button>
 
 </aside>
 
 <aside class="right">
 
 	<div class="slidecontainer">
-		<label class="right_panel_label" for="xspeed">X Initial burst</label>
-		<input type="range" min="-1000" max="1000" bind:value={initialSpeed.x} class="slider" id="xspeed">
-		<span class="right_panel_text">{slide_to_speed(initialSpeed.x)} m.s^-2</span>
+		<AppBar>
+			<span>X initial burst</span>
+		</AppBar>
+		<Slider bind:value={initialSpeed.x} min={-1000} max={1000}></Slider>
+		<Chip>{slide_to_speed(initialSpeed.x)} m.s^-2</Chip>
 	</div>
 
 	<div class="slidecontainer">
-		<label class="right_panel_label" for="yspeed">Y Initial burst</label>
-		<input type="range" min="-1000" max="1000" bind:value={initialSpeed.y} class="slider" id="yspeed">
-		<span class="right_panel_text">{slide_to_speed(initialSpeed.y)} m.s^-2</span>
+		<AppBar>
+			<span>Y initial burst</span>
+		</AppBar>
+		<Slider bind:value={initialSpeed.y} min={-1000} max={1000}></Slider>
+		<Chip>{slide_to_speed(initialSpeed.y)} m.s^-2</Chip>
 	</div>
 
-	<button on:click="{() => reset_speeds()}">
+	<Button on:click="{() => reset_speeds()}">
 		Reset
-	</button>
+	</Button>
 
 	<div class="slidecontainer">
-		<label class="right_panel_label" for="sspeed">Simulation speed</label>
-		<input type="range" min="1" max="100" bind:value={simulation_speed} class="slider" id="sspeed">
-		<span class="right_panel_text">{simulation_speed}x</span>
+		<AppBar>
+			<span>Simulation speed</span>
+		</AppBar>
+		<Slider bind:value={simulation_speed} min={1} max={100}></Slider>
+		<Chip>{simulation_speed}x</Chip>
 	</div>
 
 </aside>
+
+</MaterialApp>
 
 <style>
 	span.right_panel_text {
@@ -146,7 +175,7 @@
 		padding: 0;
 		margin: 0;
 		height: 100vh;
-		width: 15vw;
+		width: 15vmax;
 		background-color: rgba(80, 80, 80, 0.5);
 	}
 
@@ -157,7 +186,7 @@
 		padding: 0;
 		margin: 0;
 		height: 100vh;
-		width: 15vw;
+		width: 15vmax;
 		background-color: rgba(80, 80, 80, 0.5);
 	}
 
