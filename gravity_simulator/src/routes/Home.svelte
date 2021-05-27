@@ -1,38 +1,48 @@
 <script>
+		import { MaterialApp, Button, Select, Slider, AppBar, Chip } from 'svelte-materialify';
+
     let svelte='https://blog.engineering.publicissapient.fr/wp-content/uploads/2020/03/svelte-logo_20191220-768x415.png'
     let newton='https://p4.storage.canalblog.com/45/35/1498383/123397598.png'
     let stepByStep='https://i.pinimg.com/originals/14/29/4b/14294b53e990577bc548eba4d1ecb4f5.png'
-    let app='../img/App.PNG'
+    let app='../../img/App.PNG'
+
+		const theme = "dark";
+
+		let pageName = "Home";
+
+		particlesJS.load('particles-js', './assets/particles.json', function() {
+		  console.log('ok');
+		});
+
 </script>
 
-<html lang="html">
-<head>
-    <!-- En-tête de la page -->
-    <meta charset="utf-8" />
-    <title>Simulation de gravité</title>
-</head>
-
-<body>
     <!-- Corps de la page -->
-    <ul>
-        <li class="link"><a class="active" href="#home">Home</a></li>
-        <li class="link"><a href="App.svelte">Gravité</a></li>
-    </ul>
-    <h1>
-        Projet de simulation en Javascript : Simulation de la gravité
-    </h1>
+		<AppBar class="grey darken-3">
+				<span class="link nav_block"><a class="active nav_block white-text" href="#home">Home</a></span>
+				<span class="link nav_block"><a class="nav_block white-text" href="simulation">Simulation</a></span>
+		</AppBar>
+
+		<div class="block">
+			<div id="particles-js"></div>
+			<h1 class="white-text">
+					Gravity simulation university project
+			</h1>
+		</div>
+
+
+
     <div class=block>
     <h2>
         Description
     </h2>
-    <p>Notre projet conssiste à réaliser une application web qui simule la gravité.</p> 
+    <p>Notre projet conssiste à réaliser une application web qui simule la gravité.</p>
     <p> Au départ nous avons décidé de reproduire l'expérience de la pomme de Newton puis nous avons élargie notre projet à toutes les planètes du système solaire</p>
     <p>Ainsi nous avons simulé la chute d'objets sur une planète.</p> <p>Grâce aux calculs que nous avons retranscrit en javascript nous avons crées une aplication simple, intuitive et interactive. </p>
     <img src={newton}/>
     </div>
     <div class=block2>
     <h2>
-        Etape 
+        Etape
     </h2>
     <ol>
         <li>Trouver les bibliothèque utiles pour réaliser la simmulation et le moteur graphique</li>
@@ -45,10 +55,10 @@
     <h2>Svelte</h2>
     <img src={svelte}/>
     <p>Svelte est un framwork javascript mais aussi un compilateur utilisé dans la création d’interfaces utilisateur réactives.</p>
-    <p>Pourquoi svelte ?</p> 
+    <p>Pourquoi svelte ?</p>
     <li>
         Framwork plus léger que React ou vue.
-    </li> 
+    </li>
     <li>
         Mais aussi plus rapide
     </li>
@@ -67,15 +77,9 @@
         Auteur : Wassim SAIDANE & Raphaël Marraccini
     </footer>
 
-</body>
-</html>
 
 <style>
-html{
-    margin : 0;
-    padding: 0;
-    background-color: black;
-}
+
 body {
     position: absolute;
     top: 0;
@@ -83,7 +87,6 @@ body {
     margin: 0;
     padding: 0;
     background-color: black;
-    color : white;
 }
 
 div.block {
@@ -112,50 +115,32 @@ div p {
 }
 
 div.block2 {
-     width: 100vw;
+    width: 100vw;
     height: 100vh;
     background-color:#3a3a3a;
 
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
+h1 {
+	position: absolute;
+	top: 30vh;
+	left: 25vw;
+	font-size: 3vw;
 }
 
 .link {
   float: left;
 }
 
-li a {
+span.nav_block a.nav_block {
   display: block;
-  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
 }
 
-li a:hover {
-  background-color: #111;
-}
-
-h1
-{
-  font-size: 32px;
-  text-shadow: -1px -1px #0c0, 1px 1px #060, -3px 0 4px #000;
-  font-family:Arial, Helvetica, sans-serif;
-  color: #090;
-  padding:16px;
-  font-weight:lighter;
-  -moz-box-shadow: 2px 2px 6px #888;  
-  -webkit-box-shadow: 2px 2px 6px #888;  
-  box-shadow:2px 2px 6px #888;  
-  text-align:center;
-  display:block;
-  margin:16px;  
+span.nav_block a.nav_block:hover {
+  background-color: #aa00ff;
 }
 
 th {
@@ -170,7 +155,7 @@ td {
 }
 
 table {
-  border-collapse: collapse;  
+  border-collapse: collapse;
   width: 50%;
 }
 

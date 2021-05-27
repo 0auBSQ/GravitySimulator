@@ -4,7 +4,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --port=5001"
+    "start": "sirv public --port=5001 -s"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
@@ -17,9 +17,11 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "particles.js": "^2.0.0",
     "sirv": "^1.0.11",
     "sirv-cli": "^1.0.0",
     "svelte-materialify": "^0.3.10",
+    "svelte-routing": "^1.6.0",
     "three": "^0.126.1"
   }
 }

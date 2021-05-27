@@ -63,15 +63,17 @@ let composer;
 let renderPass;
 let outlinePass;
 
+// Camera position initializer
 camera.position.z = 2;
 camera.position.y = 1;
 camera.position.x = 0;
+
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-
+// Planet rotation animation
 const animate = () => {
   requestAnimationFrame(animate);
   //planet.rotation.x += 0.01;
@@ -80,6 +82,7 @@ const animate = () => {
   composer.render(scene, camera);
 };
 
+// Camera resize parameters
 const resize = () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   let pixelRatio = window.devicePixelRatio || 0;
@@ -88,12 +91,14 @@ const resize = () => {
   camera.updateProjectionMatrix();
 };
 
+// Skybox texture loading
 const set_skybox = () => {
   const sloader = new THREE.TextureLoader();
   const tex = sloader.load("https://i.imgur.com/9b413YA.png");
   scene.background = tex;
 };
 
+// Attacking object loading
 const load_object = (obj, pl) => {
   const oloader = new GLTFLoader();
   oloader.load(obj.model, function (gltf) {
@@ -112,6 +117,7 @@ const load_object = (obj, pl) => {
   });
 };
 
+// Attacking object outline processing
 const load_effects = () => {
   renderPass = new RenderPass(scene, camera);
   outlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
@@ -132,16 +138,16 @@ let tid;
 let simulation_speed = 100;
 let tmpPos = new THREE.Vector3(0., 0., 0.);
 
+// Simulation main loop
 const object_drop = (params) => {
 	let repetitions = simulation_speed;
 
+	// Edit a deep copy of the object position and set it back then
 	tmpPos.copy(attacking_object.position);
 	let {planet, object, interval} = params;
 
-	console.log(tmpPos);
-
+	// Calculate multiple trajectoires at once before rendering if the simulation speed is over 1x
 	while (repetitions > 0) {
-
 
 	  // Planet is always (0, 0, 0)
 	  obj_distance = Math.sqrt(Math.pow(tmpPos.x, 2) + Math.pow(tmpPos.y, 2) + Math.pow(tmpPos.z, 2));
@@ -151,6 +157,7 @@ const object_drop = (params) => {
 			break ;
 	  }
 
+		// Planet gravity pull formula, earth is about 9.8 at its surface, we want N per kg so we don't include the object mass
 	  let gravity_params = {
 	    m1: planet.mass * 5.972 * Math.pow(10, 24),
 	    m2: 1,
@@ -158,6 +165,7 @@ const object_drop = (params) => {
 	    G: 6.67408 * Math.pow(10, -11),
 	  };
 	  let gravity_pull = (gravity_params.G * gravity_params.m1 * gravity_params.m2) / Math.pow(gravity_params.d, 2);
+		// Gravity pull force vector for the current frame
 	  let gravity_vector = new THREE.Vector3(-tmpPos.x, -tmpPos.y, -tmpPos.z).normalize().multiplyScalar(gravity_pull * (interval / 1000.) / 6371000);
 		//let speed_vector = new THREE.Vector3(current_speed.x, current_speed.y, 0.);
 
@@ -168,12 +176,8 @@ const object_drop = (params) => {
 		repetitions--;
 	}
 
+
   attacking_object.position.copy(tmpPos);
-
-	console.log(attacking_object.position);
-
-	//console.log("ok");
-  //console.log(direction_vector);
 }
 
 // Interval wrapper to provide arguments using anonymous functions
@@ -201,6 +205,7 @@ export const playAnimation = (el, obj, speed, sspeed) => {
   tid = createInterval(object_drop, {planet: el, object: obj}, interval);
 }
 
+// Scene initialisation
 export const createScene = (el) => {
   renderer = new THREE.WebGLRenderer({antialias: true, canvas: el});
   composer = new EffectComposer(renderer);
@@ -213,6 +218,7 @@ export const createScene = (el) => {
   animate();
 }
 
+// Scene reload
 export const refreshScene = (el, obj) => {
   console.log(el);
   console.log(obj);
