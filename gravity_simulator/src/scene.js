@@ -182,11 +182,13 @@ const createInterval = (f, dynamicParams, interval) => {
 }
 
 // Play simulation, executed once each time the button is clicked
-export const playAnimation = (el, obj, speed) => {
+export const playAnimation = (el, obj, speed, sspeed) => {
 	clearInterval(tid);
 	// Reset object pos
 	attacking_object.position.set(0., el.radius * 1.5,0.);
-  let interval = 20;
+	// Simulation parameters (simulation speed and millis per frame)
+	let interval = 20;
+	simulation_speed = sspeed;
 	// "Current speed" here is actually just a single burst for one frame when the object is launched
 	console.log(speed);
 	current_speed = {

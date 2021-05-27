@@ -38,7 +38,7 @@
 
 	const play_anim = () => {
 		console.log("Cliqued !");
-		playAnimation(selected, selected_object, rescale_initial_speed());
+		playAnimation(selected, selected_object, rescale_initial_speed(), simulation_speed);
 	}
 
 	const rescale_initial_speed = () => {
@@ -49,7 +49,7 @@
 	}
 
 	const slide_to_speed = (slide) => {
-		let val = Math.ceil(Math.pow((slide / 3.), 2));
+		let val = Math.ceil(Math.pow((slide / 2.), 2));
 		if (slide < 0)
 			val = -val;
 		return val;
