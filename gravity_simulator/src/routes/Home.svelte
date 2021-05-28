@@ -3,11 +3,9 @@
 		import { fly } from 'svelte/transition';
 
     let svelte='https://blog.engineering.publicissapient.fr/wp-content/uploads/2020/03/svelte-logo_20191220-768x415.png'
-    let newton='https://p4.storage.canalblog.com/45/35/1498383/123397598.png'
-    let stepByStep='https://i.pinimg.com/originals/14/29/4b/14294b53e990577bc548eba4d1ecb4f5.png'
-    let app='../../img/App.PNG'
 
-		const solar_system="img/SolarSystem.jpg";
+
+		const frameworks="img/Frameworks.png";
 
 		const theme = "dark";
 
@@ -24,9 +22,11 @@
 		<nav class="gs_navbar">
 			<AppBar class="grey darken-3">
 					<span class="link nav_block"><a class="active nav_block white-text" href="#home">🏠</a></span>
+					<Divider vertical />
 					<span class="link nav_block"><a class="active nav_block white-text" href="#desc">Description</a></span>
 					<span class="link nav_block"><a class="active nav_block white-text" href="#libs">Libraries</a></span>
 					<span class="link nav_block"><a class="active nav_block white-text" href="#step">Steps</a></span>
+					<Divider vertical />
 					<span class="link nav_block"><a class="nav_block white-text" href="simulation">Simulation</a></span>
 			</AppBar>
 		</nav>
@@ -40,6 +40,7 @@
 				<Button
 					rounded
 					class="primary-color"
+					size="x-large"
 					on:click="{() => window.location.href='simulation'}"
 					>
 					Get started
@@ -84,16 +85,44 @@
 
     </div>
 
-    <div class="block" id="libs">
-    <h2>
-        Etape
-    </h2>
-    <ol>
-        <li>Trouver les bibliothèque utiles pour réaliser la simmulation et le moteur graphique</li>
-        <li>Faire les calculs scientifiques nécessaires</li>
-        <li>Rajouter une interface intuitive</li>
-    </ol>
-    <img src={stepByStep}/>
+    <div class="block gs_lbbg" id="libs">
+
+			<h1 class="gs_subtitle">
+					Libraries and frameworks
+			</h1>
+
+			<Divider />
+			<br />
+
+			<p class="gs_paragraph">
+				We used the following libraries and frameworks for our project :
+			</p>
+
+			<p class="gs_paragraph">
+				- Svelte.js : The main framework for our pages, very lightweight, simple and powerful.
+			</p>
+
+			<p class="gs_paragraph">
+				- Three.js : Awesome optimised WebGL 3D engine with lots of documented features.
+			</p>
+
+			<p class="gs_paragraph">
+				- Svelte-materialify : Material design library for Svelte, useful to build gorgeous web pages with low effort.
+			</p>
+
+			<p class="gs_paragraph">
+				- Svelte-routing : Very easy-to-use and lightweight routing library for Svelte.
+			</p>
+
+			<p class="gs_paragraph">
+				- particles.js : For the first slide of our home page.
+			</p>
+
+			<Divider />
+			<br />
+
+    <img src={frameworks} class="gs_lbimg"/>
+
     </div>
 
     <div class="block" id="step">
@@ -159,6 +188,15 @@ div p {
 div.gs_ssbg {
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/SolarSystem.jpg) no-repeat center center fixed;
 	background-size: cover;
+}
+
+div.gs_lbbg {
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/Library.jpg) no-repeat center center fixed;
+	background-size: cover;
+}
+
+img.gs_lbimg {
+	width: 80%;
 }
 
 p.gs_paragraph {
