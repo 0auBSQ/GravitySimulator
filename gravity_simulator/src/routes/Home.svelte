@@ -1,10 +1,13 @@
 <script>
-		import { MaterialApp, Button, Select, Slider, AppBar, Chip } from 'svelte-materialify';
+		import { MaterialApp, Button, Select, Slider, AppBar, Chip, Divider } from 'svelte-materialify';
+		import { fly } from 'svelte/transition';
 
     let svelte='https://blog.engineering.publicissapient.fr/wp-content/uploads/2020/03/svelte-logo_20191220-768x415.png'
     let newton='https://p4.storage.canalblog.com/45/35/1498383/123397598.png'
     let stepByStep='https://i.pinimg.com/originals/14/29/4b/14294b53e990577bc548eba4d1ecb4f5.png'
     let app='../../img/App.PNG'
+
+		const solar_system="img/SolarSystem.jpg";
 
 		const theme = "dark";
 
@@ -16,31 +19,72 @@
 
 </script>
 
+<MaterialApp {theme}>
     <!-- Corps de la page -->
-		<AppBar class="grey darken-3">
-				<span class="link nav_block"><a class="active nav_block white-text" href="#home">Home</a></span>
-				<span class="link nav_block"><a class="nav_block white-text" href="simulation">Simulation</a></span>
-		</AppBar>
+		<nav class="gs_navbar">
+			<AppBar class="grey darken-3">
+					<span class="link nav_block"><a class="active nav_block white-text" href="#home">🏠</a></span>
+					<span class="link nav_block"><a class="active nav_block white-text" href="#desc">Description</a></span>
+					<span class="link nav_block"><a class="active nav_block white-text" href="#libs">Libraries</a></span>
+					<span class="link nav_block"><a class="active nav_block white-text" href="#step">Steps</a></span>
+					<span class="link nav_block"><a class="nav_block white-text" href="simulation">Simulation</a></span>
+			</AppBar>
+		</nav>
 
-		<div class="block">
+		<div class="block" id="home">
 			<div id="particles-js"></div>
-			<h1 class="white-text">
+			<h1 class="white-text gs_title" transition:fly="{{ x: 20, duration: 2000 }}">
 					Gravity simulation university project
 			</h1>
+			<div class="gs_button" transition:fly="{{ x: 40, duration: 3000 }}">
+				<Button
+					rounded
+					class="primary-color"
+					on:click="{() => window.location.href='simulation'}"
+					>
+					Get started
+				</Button>
+			</div>
 		</div>
 
 
 
-    <div class=block>
-    <h2>
-        Description
-    </h2>
-    <p>Notre projet conssiste à réaliser une application web qui simule la gravité.</p>
-    <p> Au départ nous avons décidé de reproduire l'expérience de la pomme de Newton puis nous avons élargie notre projet à toutes les planètes du système solaire</p>
-    <p>Ainsi nous avons simulé la chute d'objets sur une planète.</p> <p>Grâce aux calculs que nous avons retranscrit en javascript nous avons crées une aplication simple, intuitive et interactive. </p>
-    <img src={newton}/>
+    <div class="block gs_ssbg" id="desc">
+
+				<h1 class="gs_subtitle">
+		        Project description
+		    </h1>
+
+				<Divider />
+				<br />
+
+				<p class="gs_paragraph">
+					This project represents our submission for the university "Scientific simulation in JavaScript" subject's project.
+				</p>
+
+				<p class="gs_paragraph">
+					Our project main objective was to conceive a small weight web application that simulate gravity in any interesting way.
+				</p>
+
+				<p class="gs_paragraph">
+					We first thought about the Newton apple experience and made a first prototype simulating the fall of a primitive object on the ground.
+				</p>
+
+				<p class="gs_paragraph">
+					We decided then, to make it more interesting, to reproduce the gravity action of every solar system planet on a choosen object, giving it an initial burst.
+				</p>
+
+				<p class="gs_paragraph">
+					Using the graviry pull and acceleration formulas, this applications allows to reproduce in a 3D environment, in real or accelerated time the movements of an object depending on the choosen planet characteristics.
+				</p>
+
+				<p class="gs_paragraph">
+					For now the simulation cointains a moderate amont of features, but we plan to add few more later.
+				</p>
+
     </div>
-    <div class=block2>
+
+    <div class="block" id="libs">
     <h2>
         Etape
     </h2>
@@ -51,7 +95,8 @@
     </ol>
     <img src={stepByStep}/>
     </div>
-    <div class=block>
+
+    <div class="block" id="step">
     <h2>Svelte</h2>
     <img src={svelte}/>
     <p>Svelte est un framwork javascript mais aussi un compilateur utilisé dans la création d’interfaces utilisateur réactives.</p>
@@ -67,33 +112,30 @@
     </li>
     <p>En résumé: Svelte nous a permis de concevoir une application avec un moteur graphique puissant tout en ayant un code claire et léger</p>
     </div>
-    <div class=block2>
-    <h2>Interface</h2>
-    <p>Cette application permet aux utilisateurs de faire chuter une météorite sur les différentes planètes du système solaire et observer les différences.</p>
-    <p>A gauche nous pouvons charger les planètes ainsi que les différents objets alors qu'à droite on peut modifier différentes caractéristique physique tel que la vitesse de la simulation ou la trajectoire de la météorite</p>
-    <img src={app}/>
-    </div>
     <footer>
         Auteur : Wassim SAIDANE & Raphaël Marraccini
     </footer>
 
+	</MaterialApp>
+
 
 <style>
-
-body {
-    position: absolute;
-    top: 0;
-    left:0;
-    margin: 0;
-    padding: 0;
-    background-color: black;
-}
 
 div.block {
   width: 100vw;
   height: 100vh;
-  background-color:black;
+  background-color: rgba(0, 0, 0, 0.8);
+	text-align: center;
+	overflow: hidden;
+}
 
+
+
+div#particles-js {
+	position: absolute;
+  height: 100%;
+  width: 100%;
+	overflow: hide;
 }
 
 div h2{
@@ -114,18 +156,38 @@ div p {
   text-indent: 30px;
 }
 
-div.block2 {
-    width: 100vw;
-    height: 100vh;
-    background-color:#3a3a3a;
+div.gs_ssbg {
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/SolarSystem.jpg) no-repeat center center fixed;
+	background-size: cover;
+}
 
+p.gs_paragraph {
+	margin-right: 4vw;
+	font-size: 1.4vw;
 }
 
 h1 {
-	position: absolute;
-	top: 30vh;
-	left: 25vw;
+	text-align: center;
+}
+
+h1.gs_subtitle {
+	margin-top: 10vh;
 	font-size: 3vw;
+}
+
+h1.gs_title {
+	margin-top: 30vh;
+	font-size: 3vw;
+}
+
+.gs_button {
+	margin: 10vh auto;
+}
+
+nav.gs_navbar {
+	position: fixed;
+	width: 100vw;
+	z-index: 12000;
 }
 
 .link {
@@ -141,22 +203,6 @@ span.nav_block a.nav_block {
 
 span.nav_block a.nav_block:hover {
   background-color: #aa00ff;
-}
-
-th {
-  height: 70px;
-  border: 1px solid white;
-}
-
-td {
-  border: 1px solid white;
-  border-collapse: collapse;
-  text-align: center;
-}
-
-table {
-  border-collapse: collapse;
-  width: 50%;
 }
 
 li {
