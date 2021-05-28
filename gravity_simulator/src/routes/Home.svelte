@@ -121,28 +121,55 @@
 			<Divider />
 			<br />
 
-    <img src={frameworks} class="gs_lbimg"/>
+    <img alt="Frameworks logos" src={frameworks} class="gs_lbimg"/>
 
     </div>
 
-    <div class="block" id="step">
-    <h2>Svelte</h2>
-    <img src={svelte}/>
-    <p>Svelte est un framwork javascript mais aussi un compilateur utilisé dans la création d’interfaces utilisateur réactives.</p>
-    <p>Pourquoi svelte ?</p>
-    <li>
-        Framwork plus léger que React ou vue.
-    </li>
-    <li>
-        Mais aussi plus rapide
-    </li>
-    <li>
-        Un code claire et simple
-    </li>
-    <p>En résumé: Svelte nous a permis de concevoir une application avec un moteur graphique puissant tout en ayant un code claire et léger</p>
+    <div class="block gs_stbg" id="step">
+
+		<h1 class="gs_subtitle">
+				Progression and ideas
+		</h1>
+
+		<Divider />
+		<br />
+
+		<p class="gs_paragraph">
+			- We first spent the first classes brainstorming about what framework to use, what kind of simulation to do and how to separate our tasks.
+		</p>
+
+		<p class="gs_paragraph">
+			Our university's "Scientific simulation in JavaScript" subject being a multiple-field free-to-choose subject (implying that some students aren't from the IT field), the first 4 classes were about HTML and CSS basics, which gave us the opportunity to start working on the project earlier and make relevant progress, already having some web development knowledge.
+		</p>
+
+		<p class="gs_paragraph">
+			- The second main step of our project was to find relevant ressources for the project, we needed a meteorite mesh for our simulation, which we found on Sketchfab (see the author credits directly on the main README.md).
+		</p>
+
+		<p class="gs_paragraph">
+			We also needed planetes models, we used a trick here, we simply built primitives spheres from Three.js, then mapped them with textures found on the solartextures CDN.
+		</p>
+
+		<p class="gs_paragraph">
+			- The third step was about making the actual simulation; in order to limit errors and to make the code easier to read, we scaled the distance and mass units by Earth ones (i.e. Mars radius is 0.53 Earth and mass is 0.107 Earth).
+		</p>
+
+		<p class="gs_paragraph">
+			The hardest part here was to get the correct physics formulas and to propose a correct way to accelerate the simulation, which finally worked pretty well.
+		</p>
+
+		<p class="gs_paragraph">
+			- The fourth (and last) step for the submission was the implementation of material design and the conception of this home page.
+		</p>
+
+		<p class="gs_paragraph">
+			More laid back part here, mostly design and explanations, which was kind of refreshing since we got our last exams one week before and were already into thinking about our vacations.
+		</p>
+
     </div>
+
     <footer>
-        Auteur : Wassim SAIDANE & Raphaël Marraccini
+        Authors : Wassim SAIDANE & Raphaël MARRACCINI
     </footer>
 
 	</MaterialApp>
@@ -158,8 +185,6 @@ div.block {
 	overflow: hidden;
 }
 
-
-
 div#particles-js {
 	position: absolute;
   height: 100%;
@@ -167,12 +192,7 @@ div#particles-js {
 	overflow: hide;
 }
 
-div h2{
-  text-align: center;
-  color : red;
-}
-
-div img{
+div img {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -192,6 +212,11 @@ div.gs_ssbg {
 
 div.gs_lbbg {
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/Library.jpg) no-repeat center center fixed;
+	background-size: cover;
+}
+
+div.gs_stbg {
+	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/Steps.jpg) no-repeat center center fixed;
 	background-size: cover;
 }
 
@@ -243,15 +268,10 @@ span.nav_block a.nav_block:hover {
   background-color: #aa00ff;
 }
 
-li {
-    font: 1rem 'Fira Sans', sans-serif;
-    margin-bottom: .5rem;
-}
-
 footer{
-background-color: blue;
-text-align: center;
-padding-bottom: 15px;
+	background-color: black;
+	text-align: center;
+	padding-bottom: 15px;
 }
 
 
